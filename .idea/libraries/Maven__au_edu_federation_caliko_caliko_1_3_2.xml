@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: au.edu.federation.caliko:caliko:1.3.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/au/edu/federation/caliko/caliko/1.3.2/caliko-1.3.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/au/edu/federation/caliko/caliko/1.3.2/caliko-1.3.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/au/edu/federation/caliko/caliko/1.3.2/caliko-1.3.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
