@@ -2,6 +2,7 @@ package Controller;
 
 import Model.RobotArm;
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +20,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Box;
 import util.MagicNumbers;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -50,6 +54,14 @@ public class MainController {
     @FXML JFXToggleButton button3;
     @FXML JFXToggleButton button4;
     @FXML JFXToggleButton button5;
+
+
+    @FXML JFXTextField home1;
+    @FXML JFXTextField home2;
+    @FXML JFXTextField home3;
+    @FXML JFXTextField home4;
+    @FXML JFXTextField home5;
+
 
     RobotArm robotArm;
 
@@ -153,6 +165,48 @@ public class MainController {
         jointVal6.setText(String.format("%.2f",newValue*MagicNumbers.HUNDRED_TO_360));
     }
 
+    @FXML
+    public void saveData(){
+        System.out.println("Save data");
+        byte a[];
+        byte b[];
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
+try {
+    outputStream.write(home1.getText().getBytes());
+    outputStream.write('\n');
+    outputStream.write(home2.getText().getBytes());
+    outputStream.write('\n');
+    outputStream.write(home3.getText().getBytes());
+    outputStream.write('\n');
+    outputStream.write(home4.getText().getBytes());
+    outputStream.write('\n');
+    outputStream.write(home5.getText().getBytes());
+    outputStream.write('\n');
+
+}
+catch (IOException e) {
+    e.printStackTrace();
+}
+
+
+        byte data[] = outputStream.toByteArray();
+
+        System.out.println(data.toString());
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream("armDat.data");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            out.write(data);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 
