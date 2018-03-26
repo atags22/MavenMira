@@ -22,6 +22,7 @@ public class RobotArm {
         for(int i = 1; i <=6; i++){
             Joint j = new Joint(i);
             kinematicChain.add(j);
+
         }
     }
 
