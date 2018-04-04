@@ -114,28 +114,41 @@ public class Comms {
             jointIDStr = Integer.toString(jointID);
         }
 
-        String offset = Integer.toString(encoderOffset);
-        while(offset.length() < 4){
-            offset = "0" + offset;
+        String offsetStr = Integer.toString(encoderOffset);
+        while(offsetStr.length() < 4){
+            offsetStr = "0" + offsetStr;
         }
 
-        String pid;
-        if(kp < 0)
-            kp = 0;
-        if(kp > 99.99){
-            kp = 99.99;
+//        String pid;
+//        if(kp < 0)
+//            kp = 0;
+//        if(kp > 99.99){
+//            kp = 99.99;
+//        }
+
+        String kpStr = turnDoubleIntoFormattedString(kp);
+        String kdStr = turnDoubleIntoFormattedString(kd);
+        String kiStr = turnDoubleIntoFormattedString(ki);
+
+        String toSend = jointStr + jointID + offsetStr + kpStr + kdStr + kiStr;
+
+        try {
+            outs.writeChars(toSend);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Write Out Failed");
         }
-
-
-        String toSend = jointStr + jointID + offset + pid;
-
 
         return false;
     }
 
     String turnDoubleIntoFormattedString(double d){
-        return "0";
+        String dStr = Double.toString(d);
+        dStr = dStr.replace(".", "");
+        return dStr;
     }
+
+
 
     void sendEnableStatus(int jointNum, boolean status){
 
