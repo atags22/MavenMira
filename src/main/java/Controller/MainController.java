@@ -65,62 +65,61 @@ public class MainController {
 
     RobotArm robotArm;
 
-    public void initialize(){
+    public void initialize() {
 
         robotArm = new RobotArm();
 
 
         jointCtrl1.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider1(newValue.doubleValue());
-            robotArm.updateJointPosition(1,newValue.doubleValue());
+            robotArm.updateJointPosition(1, newValue.doubleValue());
         });
 
         jointCtrl2.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider2(newValue.doubleValue());
-            robotArm.updateJointPosition(2,newValue.doubleValue());
+            robotArm.updateJointPosition(2, newValue.doubleValue());
         });
 
         jointCtrl3.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider3(newValue.doubleValue());
-            robotArm.updateJointPosition(3,newValue.doubleValue());
+            robotArm.updateJointPosition(3, newValue.doubleValue());
         });
 
         jointCtrl4.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider4(newValue.doubleValue());
-            robotArm.updateJointPosition(4,newValue.doubleValue());
+            robotArm.updateJointPosition(4, newValue.doubleValue());
         });
 
         jointCtrl5.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider5(newValue.doubleValue());
-            robotArm.updateJointPosition(5,newValue.doubleValue());
+            robotArm.updateJointPosition(5, newValue.doubleValue());
         });
 
         jointCtrl6.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider6(newValue.doubleValue());
-            robotArm.updateJointPosition(6,newValue.doubleValue());
+            robotArm.updateJointPosition(6, newValue.doubleValue());
         });
-
 
 
         button1.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
 //                System.out.println("Button is " + button1.isSelected());
-                robotArm.setActiveStatus(1,button1.isSelected());
+                robotArm.setActiveStatus(1, button1.isSelected());
             }
         });
         button2.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
 //                System.out.println("Button is " + button2.isSelected());
-                robotArm.setActiveStatus(2,button2.isSelected());
+                robotArm.setActiveStatus(2, button2.isSelected());
             }
         });
         button3.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
 //                System.out.println("Button is " + button3.isSelected());
-                robotArm.setActiveStatus(3,button3.isSelected());
+                robotArm.setActiveStatus(3, button3.isSelected());
             }
         });
 
@@ -129,7 +128,7 @@ public class MainController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
 //                System.out.println("Button is " + button4.isSelected());
-                robotArm.setActiveStatus(4,button4.isSelected());
+                robotArm.setActiveStatus(4, button4.isSelected());
             }
         });
 
@@ -137,10 +136,35 @@ public class MainController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
 //                System.out.println("Button is " + button0.isSelected());
-                robotArm.setActiveStatus(5,button5.isSelected());
+                robotArm.setActiveStatus(5, button5.isSelected());
             }
         });
+
     }
+        void init(){
+            for(int i = 0; i < RobotArm.numJoints; i++) {
+                sendJointID(i);
+                sendEncoderOffsets(i);
+                sendPIDConsts(i);
+                waitForAck(i);
+            }
+        }
+
+        void sendJointID(int jointNum){
+
+        }
+        void sendEncoderOffsets(int jointnum){
+
+        }
+        void sendPIDConsts(int jointNum){
+
+        }
+        void waitForAck(int jointNum){
+
+        }
+
+
+
     public AnchorPane getAnchorViz() {
 
         return anchorViz;
