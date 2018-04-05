@@ -16,6 +16,7 @@ public class Comms {
     //TODO: Figure out how to make an HID object
     private DataInputStream ins;
     private DataOutputStream outs;
+    private static Comms instance = null;
 
     //This class is now a Singleton.
     private Comms(){
@@ -26,46 +27,44 @@ public class Comms {
         String port = "/dev/ttyACM0";
         int baudRate = 115200;
         NRSerialPort serial = new NRSerialPort(port, baudRate);
-
-        //TODO: If statement is untested. Try with actual hardware.
-        if(!serial.isConnected()){
-            serial.connect();
-        }
+        serial.connect();
+//        //TODO: If statement is untested. Try with actual hardware.
+//        if(!serial.isConnected()){
+//            serial.connect();
+//        }
 
         ins = new DataInputStream(serial.getInputStream());
         outs = new DataOutputStream(serial.getOutputStream());
 
 
-        try {
-            serial.addEventListener(new SerialPortEventListener() {
-                @Override
-                public void serialEvent(SerialPortEvent serialPortEvent) {
-                    if(serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-                        try {
-                            //Print the number of bytes of the message
-                            System.out.println("Able to read " + ins.available() + "b");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            });
-        } catch (TooManyListenersException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            serial.addEventListener(new SerialPortEventListener() {
+//                @Override
+//                public void serialEvent(SerialPortEvent serialPortEvent) {
+//                    if(serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+//                        try {
+//                            //Print the number of bytes of the message
+//                            System.out.println("Able to read " + ins.available() + "b");
+//                            System.out.println(ins.read());
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            });
+//        } catch (TooManyListenersException e) {
+//            e.printStackTrace();
+//        }
 
 
     }
 
-    private static Comms localInstance;
-    public static Comms getInstance(){
-        if (localInstance == null){
-            localInstance = new Comms();
+    public static Comms getInstance() {
+        if(instance == null) {
+            instance = new Comms();
         }
-        return localInstance;
+        return instance;
     }
-
-
 
 
 //TODO: Change this function so it updates an instance variable with the joint's new position,
@@ -91,7 +90,7 @@ public class Comms {
         }
     }
 
-    boolean sendJointInit(Joint j){
+    public void sendJointInit(Joint j){
         //Info: jointNum, jointID, encoderOffset, pid constants *3, get ack back
         int jointNum = j.getJointNum(); //1 through 6
         int jointID = j.getCAN_ID();
@@ -105,33 +104,25 @@ public class Comms {
 
         String jointStr = "J" + Integer.toString(jointNum);
 
+        String jointIDStr = Integer.toString(jointID);
+        //System.out.println(jointIDStr.length());
+        while(jointIDStr.length() < 2){
+            jointIDStr = "0" + jointIDStr;
+        }
+        //System.out.println(jointIDStr);
 
-        String jointIDStr;
-        if(jointID < 10){
-            jointIDStr = "0" + Integer.toString(jointID);
-        }
-        else{
-            jointIDStr = Integer.toString(jointID);
-        }
 
         String offsetStr = Integer.toString(encoderOffset);
         while(offsetStr.length() < 4){
             offsetStr = "0" + offsetStr;
         }
 
-//        String pid;
-//        if(kp < 0)
-//            kp = 0;
-//        if(kp > 99.99){
-//            kp = 99.99;
-//        }
-
         String kpStr = turnDoubleIntoFormattedString(kp);
         String kdStr = turnDoubleIntoFormattedString(kd);
         String kiStr = turnDoubleIntoFormattedString(ki);
 
-        String toSend = jointStr + jointID + offsetStr + kpStr + kdStr + kiStr;
-
+        String toSend = jointStr + jointIDStr + offsetStr + kpStr + kiStr + kdStr;
+        System.out.println(toSend);
         try {
             outs.writeChars(toSend);
         } catch (IOException e) {
@@ -139,12 +130,35 @@ public class Comms {
             System.out.println("Write Out Failed");
         }
 
-        return false;
+        byte[] buff = {'0'};
+
+        System.out.println(buff[0]);
+        System.out.println("Waiting for ACK");
+        while(buff[0] != 'Y'){
+            try {
+                ins.read(buff);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Read Failed");
+            }
+        }
+        System.out.println("ACK Received");
+
     }
 
-    String turnDoubleIntoFormattedString(double d){
+    public String turnDoubleIntoFormattedString(double d){
         String dStr = Double.toString(d);
-        dStr = dStr.replace(".", "");
+        String[] split = dStr.split("\\.");
+        String tens = split[0];
+        String decimals = split[1];
+        while(tens.length() < 2){
+            tens = "0" + tens;
+        }
+        while(decimals.length() < 2){
+            decimals = decimals + "0";
+        }
+        dStr = tens + decimals;
+        //System.out.println(dStr);
         return dStr;
     }
 

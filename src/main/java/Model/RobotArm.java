@@ -18,43 +18,43 @@ public class RobotArm {
         FabrikBone2D base = new FabrikBone2D(new Vec2f(3.0f,2.0f),new Vec2f(0.0f,1.0f),3.0f);
 
 
-        kinematicChain = new ArrayList<Joint>();
-        int offset, canID;
-        double kp, ki, kd;
-        for(int i = 1; i <=numJoints; i++){
-            //TODO: Load values from GUI
-            Joint j = new Joint(i);
-            kinematicChain.add(j);
-            switch(i){
-                case 1:
-                    offset = 12;
-                    canID = 13;
-                    kp = 1;
-                    ki = .2;
-                    kd = .3;
-                    break;
-                case 2:
-                    offset = 15;
-                    canID = 17;
-                    kp = 1.2;
-                    ki = .3;
-                    kd = 4;
-                    break;
-                default:
-                    offset = 22;
-                    canID = 55;
-                    kp = 7;
-                    ki = 3.2;
-                    kd = 2.3;
-                    break;
-            }
-            j.setOffset(offset);
-            j.setCAN_ID(canID);
-            j.setKp(kp);
-            j.setKi(ki);
-            j.setKd(kd);
-
-        }
+//        kinematicChain = new ArrayList<Joint>();
+//        int offset, canID;
+//        double kp, ki, kd;
+//        for(int i = 1; i <=numJoints; i++){
+//            //TODO: Load values from GUI
+//            Joint j = new Joint(i);
+//            kinematicChain.add(j);
+//            switch(i){
+//                case 1:
+//                    offset = 12;
+//                    canID = 13;
+//                    kp = 1;
+//                    ki = .2;
+//                    kd = .3;
+//                    break;
+//                case 2:
+//                    offset = 15;
+//                    canID = 17;
+//                    kp = 1.2;
+//                    ki = .3;
+//                    kd = 4;
+//                    break;
+//                default:
+//                    offset = 22;
+//                    canID = 55;
+//                    kp = 7;
+//                    ki = 3.2;
+//                    kd = 2.3;
+//                    break;
+//            }
+//            j.setOffset(offset);
+//            j.setCAN_ID(canID);
+//            j.setKp(kp);
+//            j.setKi(ki);
+//            j.setKd(kd);
+//
+//        }
 
         for(Joint j : kinematicChain){
             Comms.getInstance().sendJointInit(j);

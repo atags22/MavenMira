@@ -1,4 +1,6 @@
 import Controller.MainController;
+import Model.Comms;
+import Model.Joint;
 import Model.Xform;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
+import java.util.ArrayList;
 
 
 public class Main extends Application {
@@ -103,7 +106,27 @@ public class Main extends Application {
     public static void main(String[] args) {
         //usbHidTest myTest = new usbHidTest();
         System.out.println("started");
-        launch(args);
+        Comms comm = Comms.getInstance();
+        Joint a = new Joint(1, 2, 2000, 1.2, 22.3, 1.49);
+        Joint b = new Joint(2, 4, 100, 1., 13., 1.8);
+        Joint c = new Joint(3, 1, 4000, 21.9, 2.23, 1.60);
+        Joint d = new Joint(4, 0, 5000, 21.9, 2.23, 1.60);
+        Joint e = new Joint(5, 8, 200, 21.9, 2.23, 1.60);
+        Joint f = new Joint(6, 6, 4180, 21.9, 2.23, 1.60);
+
+        ArrayList<Joint> jointList = new ArrayList<>();
+        jointList.add(a);
+        jointList.add(b);
+        jointList.add(c);
+        jointList.add(d);
+        jointList.add(e);
+        jointList.add(f);
+
+        for(Joint j: jointList){
+            comm.sendJointInit(j);
+        }
+        System.out.println("Initialization Complete");
+        //launch(args);
 
 
     }

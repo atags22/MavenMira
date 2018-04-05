@@ -25,8 +25,13 @@ public class Joint {
     private HashMap<String,Double> dhParams; //d, theta, r, alpha
 
 
-    public Joint(int jointNum){
+    public Joint(int jointNum, int jointID, int encoderOffset, double kp, double ki, double kd){
         this.jointNum = jointNum;
+        this.CAN_ID = jointID;
+        this.offset = encoderOffset;
+        this.kp = kp;
+        this.kd = kd;
+        this.ki = ki;
         this.jointEnabled = true;
     }
 
