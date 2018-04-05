@@ -41,7 +41,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader();
         root = fxmlLoader.load(getClass().getResource("mainView.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("MIRA Console");
         Pane p = fxmlLoader.load(getClass().getResource("mainView.fxml").openStream());
         mainController = fxmlLoader.getController();
         mainController.initialize();
@@ -106,7 +106,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         //usbHidTest myTest = new usbHidTest();
         System.out.println("started");
-        Comms comm = Comms.getInstance();
+//        Comms comm = Comms.getInstance();
         Joint a = new Joint(1, 2, 2000, 1.2, 22.3, 1.49);
         Joint b = new Joint(2, 4, 100, 1., 13., 1.8);
         Joint c = new Joint(3, 1, 4000, 21.9, 2.23, 1.60);
@@ -123,10 +123,10 @@ public class Main extends Application {
         jointList.add(f);
 
         for(Joint j: jointList){
-            comm.sendJointInit(j);
+//            comm.sendJointInit(j);
         }
         System.out.println("Initialization Complete!!");
-        //launch(args);
+        launch(args);
 
 
     }

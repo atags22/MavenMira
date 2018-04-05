@@ -56,9 +56,9 @@ public class RobotArm {
 //
 //        }
 
-        for(Joint j : kinematicChain){
-            Comms.getInstance().sendJointInit(j);
-        }
+//        for(Joint j : kinematicChain){
+//            Comms.getInstance().sendJointInit(j);
+//        }
     }
 
     /*
