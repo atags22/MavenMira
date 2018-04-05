@@ -125,7 +125,7 @@ public class Main extends Application {
         for(Joint j: jointList){
             comm.sendJointInit(j);
         }
-        System.out.println("Initialization Complete");
+        System.out.println("Initialization Complete!!");
         //launch(args);
 
 

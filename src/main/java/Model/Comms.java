@@ -124,7 +124,7 @@ public class Comms {
         String toSend = jointStr + jointIDStr + offsetStr + kpStr + kiStr + kdStr;
         System.out.println(toSend);
         try {
-            outs.writeChars(toSend);
+            outs.writeBytes(toSend);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Write Out Failed");
@@ -132,11 +132,12 @@ public class Comms {
 
         byte[] buff = {'0'};
 
-        System.out.println(buff[0]);
+        //System.out.println(buff[0]);
         System.out.println("Waiting for ACK");
-        while(buff[0] != 'Y'){
+        while(buff[0] != 89){
             try {
                 ins.read(buff);
+                //System.out.println(buff[0]);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Read Failed");
