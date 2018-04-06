@@ -125,10 +125,13 @@ public class Main extends Application {
         for(Joint j: jointList){
             comm.sendJointInit(j);
         }
-        System.out.println("Initialization Complete!!");
+        System.out.println(comm.readBuff(12));
+        //System.out.println(comm.readBuff(4));
+        comm.sendJointUpdate(3000, 1234, 2001, 2049, 2305, 1911);
+
+        comm.disconnect();
+        System.exit(0);
         //launch(args);
-
-
     }
 }
 

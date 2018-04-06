@@ -12,11 +12,10 @@ import java.util.TooManyListenersException;
 
 public class Comms {
 
-
-    //TODO: Figure out how to make an HID object
     private DataInputStream ins;
     private DataOutputStream outs;
     private static Comms instance = null;
+    private static NRSerialPort serial;
 
     //This class is now a Singleton.
     private Comms(){
@@ -26,37 +25,11 @@ public class Comms {
         }
         String port = "/dev/ttyACM0";
         int baudRate = 115200;
-        NRSerialPort serial = new NRSerialPort(port, baudRate);
+        serial = new NRSerialPort(port, baudRate);
         serial.connect();
-//        //TODO: If statement is untested. Try with actual hardware.
-//        if(!serial.isConnected()){
-//            serial.connect();
-//        }
 
         ins = new DataInputStream(serial.getInputStream());
         outs = new DataOutputStream(serial.getOutputStream());
-
-
-//        try {
-//            serial.addEventListener(new SerialPortEventListener() {
-//                @Override
-//                public void serialEvent(SerialPortEvent serialPortEvent) {
-//                    if(serialPortEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-//                        try {
-//                            //Print the number of bytes of the message
-//                            System.out.println("Able to read " + ins.available() + "b");
-//                            System.out.println(ins.read());
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//            });
-//        } catch (TooManyListenersException e) {
-//            e.printStackTrace();
-//        }
-
-
     }
 
     public static Comms getInstance() {
@@ -64,30 +37,6 @@ public class Comms {
             instance = new Comms();
         }
         return instance;
-    }
-
-
-//TODO: Change this function so it updates an instance variable with the joint's new position,
-// //and then triggers a flush: sends all the arm data to the board
-    void sendJointUpdate(int jointNum, double newAngle){
-        //convert double to 12-bit int
-        //int b = ins.read();
-//        int b = (int) ((newAngle / 360.) * 255.);
-        if ((47 < newAngle) && (newAngle < 53)) {
-            newAngle = 50;
-        }
-        System.out.print("In val = " + newAngle);
-        int sendInt = (int) (newAngle * 8192 / 100.);
-        if (sendInt < 1000) {
-            sendInt = 1000;
-        }
-        String toSend = Integer.toString(sendInt);
-        System.out.println("Int Value: " + toSend);
-        try {
-            outs.write(toSend.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void sendJointInit(Joint j){
@@ -101,16 +50,12 @@ public class Comms {
 
         //TODO: Cap values that we think are already capped
 
-
         String jointStr = "J" + Integer.toString(jointNum);
 
         String jointIDStr = Integer.toString(jointID);
-        //System.out.println(jointIDStr.length());
         while(jointIDStr.length() < 2){
             jointIDStr = "0" + jointIDStr;
         }
-        //System.out.println(jointIDStr);
-
 
         String offsetStr = Integer.toString(encoderOffset);
         while(offsetStr.length() < 4){
@@ -122,7 +67,7 @@ public class Comms {
         String kiStr = turnDoubleIntoFormattedString(ki);
 
         String toSend = jointStr + jointIDStr + offsetStr + kpStr + kiStr + kdStr;
-        System.out.println(toSend);
+        //System.out.println(toSend);
         try {
             outs.writeBytes(toSend);
         } catch (IOException e) {
@@ -131,8 +76,6 @@ public class Comms {
         }
 
         byte[] buff = {'0'};
-
-        //System.out.println(buff[0]);
         System.out.println("Waiting for ACK");
         while(buff[0] != 89){
             try {
@@ -144,7 +87,6 @@ public class Comms {
             }
         }
         System.out.println("ACK Received");
-
     }
 
     public String turnDoubleIntoFormattedString(double d){
@@ -158,19 +100,41 @@ public class Comms {
         while(decimals.length() < 2){
             decimals = decimals + "0";
         }
-        dStr = tens + decimals;
-        //System.out.println(dStr);
         return dStr;
     }
 
-
-
-    void sendEnableStatus(int jointNum, boolean status){
-
+    public String readBuff(int size){
+        String str = "";
+        while(str.length() < size) {
+            byte[] buff = {'1'};
+            try {
+                ins.read(buff);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            str = str + (char) buff[0];
+        }
+        return str;
     }
 
-    void attachIDtoJoint(int jointNum, int jointID){
+    public void disconnect(){
+        serial.disconnect();
+    }
 
+    public void sendJointUpdate(int j1, int j2, int j3, int j4, int j5, int j6){
+        String j1Str = Integer.toString(j1);
+        String j2Str = Integer.toString(j2);
+        String j3Str = Integer.toString(j3);
+        String j4Str = Integer.toString(j4);
+        String j5Str = Integer.toString(j5);
+        String j6Str = Integer.toString(j6);
+        String outStr = j1Str + j2Str + j3Str + j4Str + j5Str + j6Str;
+        System.out.println(outStr);
+        try {
+            outs.writeBytes(outStr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
