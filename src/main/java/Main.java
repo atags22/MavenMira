@@ -12,6 +12,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 
 public class Main extends Application {
@@ -103,7 +104,7 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //usbHidTest myTest = new usbHidTest();
         System.out.println("started");
         Comms comm = Comms.getInstance();
@@ -122,12 +123,17 @@ public class Main extends Application {
         jointList.add(e);
         jointList.add(f);
 
-        for(Joint j: jointList){
-            comm.sendJointInit(j);
-        }
-        System.out.println(comm.readBuff(12));
+//        for(Joint j: jointList){
+//            comm.sendJointInit(j);
+//        }
+//        System.out.println(comm.readBuff(12));
         //System.out.println(comm.readBuff(4));
         comm.sendJointUpdate(3000, 1234, 2001, 2049, 2305, 1911);
+        TimeUnit.SECONDS.sleep(3);
+        comm.sendJointUpdate(1, 2, 3, 4, 5, 6);
+        TimeUnit.SECONDS.sleep(3);
+        comm.sendJointUpdate(6, 5, 4, 3, 2, 1);
+        TimeUnit.SECONDS.sleep(3);
 
         comm.disconnect();
         System.exit(0);

@@ -77,13 +77,13 @@ public class RobotArm {
     public void updateArmPosition(ArrayList<Double> newAngles){
         for(int i = 0; i < newAngles.size(); i++){
             //TODO: Should this be a try/catch in case we try to update more joints than we have?
-            kinematicChain.get(i).updateSetpoint(newAngles.get(i));
+            //kinematicChain.get(i).updateSetpoint(newAngles.get(i));
         }
     }
 
     public void updateJointPosition(int jointNum, double newAngle){
         //Hardcore java people would use stream or lambda function somehow
-        kinematicChain.get(jointNum-1).updateSetpoint(newAngle);
+        //kinematicChain.get(jointNum-1).updateSetpoint(newAngle);
 
     }
 
@@ -91,13 +91,14 @@ public class RobotArm {
     public ArrayList<Double> getAngles(){
         ArrayList<Double> toReturn = new ArrayList<>();
         for(Joint j : this.kinematicChain){
-            toReturn.add(j.getSetpoint());
+            //toReturn.add(j.getSetpoint());
         }
         return toReturn;
     }
 
     public Double getAngle(int jointNum){
-        return kinematicChain.get(jointNum-1).getSetpoint();
+        //return kinematicChain.get(jointNum-1).getSetpoint();
+        return 1.;
     }
 
     public void associateCANaddr(int jointNum, int canID){
@@ -105,6 +106,6 @@ public class RobotArm {
     }
 
     public void setActiveStatus(int jointNum, boolean active){
-        kinematicChain.get(jointNum-1).setActiveStatus(active);
+        //kinematicChain.get(jointNum-1).setActiveStatus(active);
     }
 }

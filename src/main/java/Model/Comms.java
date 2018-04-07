@@ -8,6 +8,7 @@ import gnu.io.SerialPortEventListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.TooManyListenersException;
 
 public class Comms {
@@ -80,7 +81,7 @@ public class Comms {
         while(buff[0] != 89){
             try {
                 ins.read(buff);
-                //System.out.println(buff[0]);
+                System.out.println(buff[0]);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Read Failed");
@@ -122,13 +123,20 @@ public class Comms {
     }
 
     public void sendJointUpdate(int j1, int j2, int j3, int j4, int j5, int j6){
-        String j1Str = Integer.toString(j1);
-        String j2Str = Integer.toString(j2);
-        String j3Str = Integer.toString(j3);
-        String j4Str = Integer.toString(j4);
-        String j5Str = Integer.toString(j5);
-        String j6Str = Integer.toString(j6);
-        String outStr = j1Str + j2Str + j3Str + j4Str + j5Str + j6Str;
+        ArrayList<String> jointStrs = new ArrayList<>();
+        jointStrs.add(Integer.toString(j1));
+        jointStrs.add(Integer.toString(j2));
+        jointStrs.add(Integer.toString(j3));
+        jointStrs.add(Integer.toString(j4));
+        jointStrs.add(Integer.toString(j5));
+        jointStrs.add(Integer.toString(j6));
+        String outStr = "";
+        for(String jStr: jointStrs){
+            while(jStr.length() < 4){
+                jStr = "0" + jStr;
+            }
+           outStr = outStr + jStr;
+        }
         System.out.println(outStr);
         try {
             outs.writeBytes(outStr);
