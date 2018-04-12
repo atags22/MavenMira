@@ -14,10 +14,7 @@ public class Joint {
 
     private int jointNum;
     private int CAN_ID;
-
     private int offset;
-
-    //TODO: Make Joint Type class/enum
     private double setPoint;
     private boolean jointEnabled; //Should the motor ever try to turn?
     private double kp, ki, kd;
@@ -25,20 +22,17 @@ public class Joint {
     private HashMap<String,Double> dhParams; //d, theta, r, alpha
 
 
-    public Joint(int jointNum, int jointID, int encoderOffset, double kp, double ki, double kd){
+    public Joint (int jointNum, int jointID, int encoderOffset, double kp, double ki, double kd){
         this.jointNum = jointNum;
         this.CAN_ID = jointID;
         this.offset = encoderOffset;
         this.kp = kp;
-        this.kd = kd;
         this.ki = ki;
+        this.kd = kd;
         this.jointEnabled = true;
     }
 
-/*    public void init(){
 
-    }
-    */
 
     //TODO: Basic setters/getters
     public void updateSetpoint(double newPoint){
