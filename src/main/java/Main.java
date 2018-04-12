@@ -136,7 +136,7 @@ public class Main extends Application {
         TimeUnit.SECONDS.sleep(3);
 
         comm.disconnect();
-        System.exit(0);
+        System.exit(1);
         //launch(args);
     }
 }
