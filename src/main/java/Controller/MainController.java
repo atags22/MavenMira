@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class MainController {
@@ -61,6 +62,26 @@ public class MainController {
     @FXML JFXTextField home3;
     @FXML JFXTextField home4;
     @FXML JFXTextField home5;
+
+    @FXML JFXTextField kp1;
+    @FXML JFXTextField kp2;
+    @FXML JFXTextField kp3;
+    @FXML JFXTextField kp4;
+    @FXML JFXTextField kp5;
+
+    @FXML JFXTextField ki1;
+    @FXML JFXTextField ki2;
+    @FXML JFXTextField ki3;
+    @FXML JFXTextField ki4;
+    @FXML JFXTextField ki5;
+
+    @FXML JFXTextField kd1;
+    @FXML JFXTextField kd2;
+    @FXML JFXTextField kd3;
+    @FXML JFXTextField kd4;
+    @FXML JFXTextField kd5;
+
+    HashMap<String,String> FXData = new HashMap<>();
 
 
     RobotArm robotArm;
