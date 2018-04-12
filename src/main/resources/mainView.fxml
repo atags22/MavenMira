@@ -196,23 +196,23 @@
                                     </AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                         <children>
-                                        <JFXTextField fx:id="kp1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                        <JFXTextField fx:id="kp1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children></AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                                          <children>
-                                             <JFXTextField fx:id="kp2" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="kp2" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children></AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                                          <children>
-                                             <JFXTextField fx:id="kp1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="kp3" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children></AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                                          <children>
-                                             <JFXTextField fx:id="kp1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="kp4" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children></AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
                                          <children>
-                                             <JFXTextField fx:id="kp1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="kp5" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children></AnchorPane>
 
                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
@@ -223,23 +223,23 @@
                                     </AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                          <children>
-                                             <JFXTextField fx:id="ki1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="ki1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children></AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                                          <children>
-                                             <JFXTextField fx:id="ki1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="ki2" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children></AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                                          <children>
-                                             <JFXTextField fx:id="ki1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="ki3" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children></AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                                          <children>
-                                             <JFXTextField fx:id="ki1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="ki4" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children></AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                                          <children>
-                                             <JFXTextField fx:id="ki1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="ki5" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children></AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                                        <children>
@@ -248,23 +248,23 @@
                                     </AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                                         <children>
-                                            <JFXTextField fx:id="kd1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                            <JFXTextField fx:id="kd1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                         </children></AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                                         <children>
-                                            <JFXTextField fx:id="kd1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                            <JFXTextField fx:id="kd2" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                         </children></AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
                                         <children>
-                                            <JFXTextField fx:id="kd1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                            <JFXTextField fx:id="kd3" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                         </children></AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                                         <children>
-                                            <JFXTextField fx:id="kd1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                            <JFXTextField fx:id="kd4" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                         </children></AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
                                         <children>
-                                            <JFXTextField fx:id="kd1" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                            <JFXTextField fx:id="kd5" alignment="CENTER" layoutX="2.0" layoutY="13.0" text="1.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                         </children></AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
                                        <children>
@@ -423,11 +423,7 @@
                                  </children>
                               </HBox>
                               <HBox prefHeight="184.0" prefWidth="600.0" />
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                 <children>
-                                    <Label layoutX="284.0" layoutY="52.0" text="Label" />
-                                 </children>
-                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" />
                            </children>
                         </VBox>
                      </children>
