@@ -15,7 +15,8 @@ public class Joint {
     private int jointNum;
     private int CAN_ID;
     private int offset;
-    private int setPoint;
+    public int setPoint;
+    public int curPoint;
     private boolean jointEnabled; //Should the motor ever try to turn?
     private double kp, ki, kd;
 
@@ -33,11 +34,7 @@ public class Joint {
     }
 
 
-
-    //TODO: Basic setters/getters
-    public void updateSetpoint(int newPoint){
-        this.setPoint = newPoint;
-    }
+    public void updateSetpoint(int newPoint){ this.setPoint = newPoint; }
     public int getSetpoint(){ return this.setPoint; }
 
     public void setActiveStatus(boolean activeStatus) {

@@ -1,16 +1,18 @@
-package Controller;
+package Model;
 
-import Model.Joint;
 import com.google.gson.Gson;
 
 import java.io.*;
 import java.util.ArrayList;
 
 public class GsonHandler {
-    private Gson gson = new Gson();
+    private Gson gson;
 
+    public GsonHandler(){
+        this.gson = new Gson();
+    }
 
-    public void write(ArrayList<Joint> joints){
+    public void writeJson(ArrayList<Joint> joints){
         String json = gson.toJson(joints);
         try{
             FileWriter fw = new FileWriter("db.json");
@@ -21,13 +23,8 @@ public class GsonHandler {
         }
     }
 
-    public ArrayList read(String filename){
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(filename));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    public ArrayList readJson(String filename) throws FileNotFoundException{
+        BufferedReader br = new BufferedReader(new FileReader(filename));
         return gson.fromJson(br, ArrayList.class);
     }
 }

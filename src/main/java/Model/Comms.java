@@ -8,6 +8,7 @@ import gnu.io.SerialPortEventListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.TooManyListenersException;
 
@@ -118,14 +119,20 @@ public class Comms {
         return str;
     }
 
+    public void readJointUpdate(ArrayList<Joint> joints){
+        for(Joint j: joints){
+            String buff = readBuff(4);
+            j.curPoint = Integer.parseInt(buff);
+        }
+    }
+
     public void disconnect(){
         serial.disconnect();
     }
 
     public void io(ArrayList<Joint> joints){
         while(true) {
-            int message_size = 10;
-            readBuff(message_size);
+            readJointUpdate(joints);
             int j1 = joints.get(0).getSetpoint();
             int j2 = joints.get(1).getSetpoint();
             int j3 = joints.get(2).getSetpoint();
