@@ -1,16 +1,17 @@
 package Controller;
 
+import Model.Joint;
 import com.google.gson.Gson;
 
 import java.io.*;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class GsonHandler {
     private Gson gson = new Gson();
 
 
-    public void write(HashMap<String, String> out){
-        String json = gson.toJson(out);
+    public void write(ArrayList<Joint> joints){
+        String json = gson.toJson(joints);
         try{
             FileWriter fw = new FileWriter("db.json");
             fw.write(json);
@@ -20,13 +21,13 @@ public class GsonHandler {
         }
     }
 
-    public HashMap read(String filename){
+    public ArrayList read(String filename){
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(filename));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return gson.fromJson(br, HashMap.class);
+        return gson.fromJson(br, ArrayList.class);
     }
 }

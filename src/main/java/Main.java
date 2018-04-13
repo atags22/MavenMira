@@ -12,6 +12,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 
 public class Main extends Application {
@@ -102,11 +103,7 @@ public class Main extends Application {
         world.getChildren().addAll(axisGroup);
     }
 
-
-    public static void main(String[] args) {
-        //usbHidTest myTest = new usbHidTest();
-        System.out.println("started");
-//        Comms comm = Comms.getInstance();
+    public static ArrayList<Joint> makeJoints(){
         Joint a = new Joint(1, 2, 2000, 1.2, 22.3, 1.49);
         Joint b = new Joint(2, 4, 100, 1., 13., 1.8);
         Joint c = new Joint(3, 1, 4000, 21.9, 2.23, 1.60);
@@ -122,13 +119,33 @@ public class Main extends Application {
         jointList.add(e);
         jointList.add(f);
 
+        return jointList;
+    }
+
+
+
+    public static void main(String[] args) throws InterruptedException {
+
+        System.out.println("started");
+        Comms comm = Comms.getInstance();
+        ArrayList<Joint> jointList = makeJoints();
+
         for(Joint j: jointList){
-//            comm.sendJointInit(j);
+            comm.sendJointInit(j);
         }
-        System.out.println("Initialization Complete!!");
-        launch(args);
-
-
+        System.out.println(comm.readBuff(12));
+        System.out.println(comm.readBuff(4));
+        comm.sendJointUpdate(3000, 1234, 2001, 2049, 2305, 1911);
+        TimeUnit.SECONDS.sleep(3);
+        comm.sendJointUpdate(1, 2, 3, 4, 5, 6);
+        TimeUnit.SECONDS.sleep(3);
+        comm.sendJointUpdate(6, 5, 4, 3, 2, 1);
+        TimeUnit.SECONDS.sleep(3);
+        //io(jointList);
+        comm.disconnect();
+        System.exit(1);
+        //launch(args);
+    }
     }
 }
 
