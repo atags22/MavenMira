@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.RobotArm;
+//import Model.RobotArm;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -11,12 +11,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Box;
 import util.MagicNumbers;
 
@@ -31,6 +33,9 @@ import java.util.ResourceBundle;
 public class MainController {
 
     @FXML AnchorPane anchorViz;
+
+
+    @FXML GridPane configGrid;
 
     @FXML Slider jointCtrl1;
     @FXML Slider jointCtrl2;
@@ -84,41 +89,41 @@ public class MainController {
     HashMap<String,String> FXData = new HashMap<>();
 
 
-    RobotArm robotArm;
+//    RobotArm robotArm;
 
     public void initialize() {
 
-        robotArm = new RobotArm();
+//        robotArm = new RobotArm();
 
 
         jointCtrl1.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider1(newValue.doubleValue());
-            robotArm.updateJointPosition(1, newValue.doubleValue());
+//            robotArm.updateJointPosition(1, newValue.doubleValue());
         });
 
         jointCtrl2.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider2(newValue.doubleValue());
-            robotArm.updateJointPosition(2, newValue.doubleValue());
+//            robotArm.updateJointPosition(2, newValue.doubleValue());
         });
 
         jointCtrl3.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider3(newValue.doubleValue());
-            robotArm.updateJointPosition(3, newValue.doubleValue());
+//            robotArm.updateJointPosition(3, newValue.doubleValue());
         });
 
         jointCtrl4.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider4(newValue.doubleValue());
-            robotArm.updateJointPosition(4, newValue.doubleValue());
+//            robotArm.updateJointPosition(4, newValue.doubleValue());
         });
 
         jointCtrl5.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider5(newValue.doubleValue());
-            robotArm.updateJointPosition(5, newValue.doubleValue());
+//            robotArm.updateJointPosition(5, newValue.doubleValue());
         });
 
         jointCtrl6.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider6(newValue.doubleValue());
-            robotArm.updateJointPosition(6, newValue.doubleValue());
+//            robotArm.updateJointPosition(6, newValue.doubleValue());
         });
 
 
@@ -126,21 +131,21 @@ public class MainController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
 //                System.out.println("Button is " + button1.isSelected());
-                robotArm.setActiveStatus(1, button1.isSelected());
+//                robotArm.setActiveStatus(1, button1.isSelected());
             }
         });
         button2.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
 //                System.out.println("Button is " + button2.isSelected());
-                robotArm.setActiveStatus(2, button2.isSelected());
+//                robotArm.setActiveStatus(2, button2.isSelected());
             }
         });
         button3.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
 //                System.out.println("Button is " + button3.isSelected());
-                robotArm.setActiveStatus(3, button3.isSelected());
+//                robotArm.setActiveStatus(3, button3.isSelected());
             }
         });
 
@@ -149,7 +154,7 @@ public class MainController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
 //                System.out.println("Button is " + button4.isSelected());
-                robotArm.setActiveStatus(4, button4.isSelected());
+//                robotArm.setActiveStatus(4, button4.isSelected());
             }
         });
 
@@ -157,13 +162,13 @@ public class MainController {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
 //                System.out.println("Button is " + button0.isSelected());
-                robotArm.setActiveStatus(5, button5.isSelected());
+//                robotArm.setActiveStatus(5, button5.isSelected());
             }
         });
 
     }
         void init(){
-            for(int i = 0; i < RobotArm.numJoints; i++) {
+            for(int i = 0; i < 6/*RobotArm.numJoints*/; i++) {
                 sendJointID(i);
                 sendEncoderOffsets(i);
                 sendPIDConsts(i);
@@ -230,9 +235,11 @@ try {
     outputStream.write('\n');
 
 }
-catch (IOException e) {
-    e.printStackTrace();
-}
+
+
+    catch (IOException e) {
+        e.printStackTrace();
+    }
 
 
         byte data[] = outputStream.toByteArray();
@@ -254,6 +261,14 @@ catch (IOException e) {
     }
 
 
+    void loadData(){
+        //call the GSON loader
+        for(Node n : configGrid.getChildren()){
+            if(n instanceof AnchorPane){
+
+            }
+        }
+    }
 
     public void toggleMenu(){
         JFXPopup p = new JFXPopup();

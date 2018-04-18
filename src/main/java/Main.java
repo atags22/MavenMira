@@ -79,7 +79,7 @@ public class Main extends Application {
     public static void main(String[] args) throws InterruptedException {
 
         System.out.println("started");
-        Comms comm = Comms.getInstance();
+//        Comms comm = Comms.getInstance();
         GsonHandler gs = new GsonHandler();
         ArrayList<Joint> jointList = null;
         try {
@@ -88,24 +88,24 @@ public class Main extends Application {
             jointList = makeJointsDefault(); //default case under condition that file is not loacted
         }
 
-        for(Joint j: jointList){
-            comm.sendJointInit(j); //sends joint init data based on what is read in from the json file
-        }
-        System.out.println(comm.readBuff(12)); //receive the Initialize ACK and print out "Initialized!"
-        //System.out.println(comm.readBuff(4));
-
-        comm.sendJointUpdate(3000, 1234, 2001, 2049, 2305, 1911);
-        TimeUnit.SECONDS.sleep(3);
-        comm.sendJointUpdate(1, 2, 3, 4, 5, 6);                    //sends three joint update messages 3 seconds apart from each other
-        TimeUnit.SECONDS.sleep(3);
-        comm.sendJointUpdate(6, 5, 4, 3, 2, 1);
-        TimeUnit.SECONDS.sleep(3);
-
-        //io(jointList);  //this reads from the input, then writes a joint update in a constant while loop
-
-        comm.disconnect(); //close serial port
-        System.exit(1); //kill the program
-        //launch(args); //gui
+//        for(Joint j: jointList){
+//            comm.sendJointInit(j); //sends joint init data based on what is read in from the json file
+//        }
+//        System.out.println(comm.readBuff(12)); //receive the Initialize ACK and print out "Initialized!"
+//        //System.out.println(comm.readBuff(4));
+//
+//        comm.sendJointUpdate(3000, 1234, 2001, 2049, 2305, 1911);
+//        TimeUnit.SECONDS.sleep(3);
+//        comm.sendJointUpdate(1, 2, 3, 4, 5, 6);                    //sends three joint update messages 3 seconds apart from each other
+//        TimeUnit.SECONDS.sleep(3);
+//        comm.sendJointUpdate(6, 5, 4, 3, 2, 1);
+//        TimeUnit.SECONDS.sleep(3);
+//
+//        //io(jointList);  //this reads from the input, then writes a joint update in a constant while loop
+//
+//        comm.disconnect(); //close serial port
+//        System.exit(1); //kill the program
+        launch(args); //gui
     }
 
     private void buildCamera() {
