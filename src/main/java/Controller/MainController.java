@@ -68,6 +68,12 @@ public class MainController {
     @FXML JFXTextField home4;
     @FXML JFXTextField home5;
 
+    @FXML JFXTextField can1;
+    @FXML JFXTextField can2;
+    @FXML JFXTextField can3;
+    @FXML JFXTextField can4;
+    @FXML JFXTextField can5;
+
     @FXML JFXTextField kp1;
     @FXML JFXTextField kp2;
     @FXML JFXTextField kp3;
@@ -189,6 +195,18 @@ public class MainController {
 
         }
 
+        @FXML
+        void sendInit(){
+        System.out.println("Start");
+        String joint1 = "Enabled: " + button1.isSelected() +
+                        " Encoder offset: " + home1.getText() +
+                        " CAN ID: " + can1.getText() +
+                        " kp: " + kp1.getText() +
+                        " ki: " + ki1.getText() +
+                        " kd: " + kd1.getText();
+        System.out.println(joint1);
+        
+        }
 
 
     public AnchorPane getAnchorViz() {
