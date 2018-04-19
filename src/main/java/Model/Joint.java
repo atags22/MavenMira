@@ -44,7 +44,6 @@ public class Joint {
     }
 
     public void updateSetpoint(int newPoint){ this.setPoint = newPoint; }
-    public int getSetpoint(){ return this.setPoint; }
 
     public void setActiveStatus(boolean activeStatus) {
         jointEnabled = activeStatus;
@@ -101,4 +100,12 @@ public class Joint {
     public int getJointNum(){
         return jointNum;
     }
+
+    public int getSetPoint() { return setPoint; }
+
+    public void setSetPoint(int setPoint) { this.setPoint = setPoint; }
+
+    public int getCurPoint() { return curPoint; }
+
+    public void setCurPoint(int curPoint) { this.curPoint = curPoint; }
 }

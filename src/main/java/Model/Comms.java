@@ -128,7 +128,7 @@ public class Comms {
     public void readJointUpdate(ArrayList<Joint> joints){
         for(Joint j: joints){
             String buff = readBuff(4);
-            j.curPoint = Integer.parseInt(buff);
+            j.setCurPoint(Integer.parseInt(buff));
         }
     }
 
@@ -139,12 +139,12 @@ public class Comms {
     public void io(ArrayList<Joint> joints){
         while(true) {
             readJointUpdate(joints);
-            int j1 = joints.get(0).getSetpoint();
-            int j2 = joints.get(1).getSetpoint();
-            int j3 = joints.get(2).getSetpoint();
-            int j4 = joints.get(3).getSetpoint();
-            int j5 = joints.get(4).getSetpoint();
-            int j6 = joints.get(5).getSetpoint();
+            int j1 = joints.get(0).getSetPoint();
+            int j2 = joints.get(1).getSetPoint();
+            int j3 = joints.get(2).getSetPoint();
+            int j4 = joints.get(3).getSetPoint();
+            int j5 = joints.get(4).getSetPoint();
+            int j6 = joints.get(5).getSetPoint();
             sendJointUpdate(j1, j2, j3, j4, j5, j6);
         }
     }

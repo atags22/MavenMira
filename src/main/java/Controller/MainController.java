@@ -117,33 +117,33 @@ public class MainController {
         loadData(); //loads data from file or makes default values for gui
 
         jointCtrl1.valueProperty().addListener((obs, oldValue, newValue) -> {
-            slider1(newValue.doubleValue());
-            joints.get(1).updateSetpoint(newValue.intValue()); //updates setpoint for a given joint value
+            slider1(newValue.intValue());
+            joints.get(0).setSetPoint(newValue.intValue()); //updates setpoint for a given joint value
         });
 
         jointCtrl2.valueProperty().addListener((obs, oldValue, newValue) -> {
-            slider2(newValue.doubleValue());
-            this.joints.get(2).updateSetpoint(newValue.intValue());
+            slider2(newValue.intValue());
+            joints.get(1).setSetPoint(newValue.intValue());
         });
 
         jointCtrl3.valueProperty().addListener((obs, oldValue, newValue) -> {
-            slider3(newValue.doubleValue());
-            this.joints.get(3).updateSetpoint(newValue.intValue());
+            slider3(newValue.intValue());
+            joints.get(2).setSetPoint(newValue.intValue());
         });
 
         jointCtrl4.valueProperty().addListener((obs, oldValue, newValue) -> {
-            slider4(newValue.doubleValue());
-            this.joints.get(4).updateSetpoint(newValue.intValue());
+            slider4(newValue.intValue());
+            joints.get(3).setSetPoint(newValue.intValue());
         });
 
         jointCtrl5.valueProperty().addListener((obs, oldValue, newValue) -> {
-            slider5(newValue.doubleValue());
-            this.joints.get(5).updateSetpoint(newValue.intValue());
+            slider5(newValue.intValue());
+            joints.get(4).setSetPoint(newValue.intValue());
         });
 
         jointCtrl6.valueProperty().addListener((obs, oldValue, newValue) -> {
-            slider6(newValue.doubleValue());
-            this.joints.get(6).updateSetpoint(newValue.intValue());
+            slider6(newValue.intValue());
+            joints.get(5).setSetPoint(newValue.intValue());
         });
 
 
@@ -212,23 +212,23 @@ public class MainController {
         return anchorViz;
     }
 
-    public void slider1(double newValue){
-        jointVal1.setText(String.format("%.2f",newValue));
+    public void slider1(int newValue){
+        jointVal1.setText(String.format("%d",newValue));
     }
-    public void slider2(double newValue){
-        jointVal2.setText(String.format("%.2f",newValue));
+    public void slider2(int newValue){
+        jointVal2.setText(String.format("%d",newValue));
     }
-    public void slider3(double newValue){
-        jointVal3.setText(String.format("%.2f",newValue));
+    public void slider3(int newValue){
+        jointVal3.setText(String.format("%d",newValue));
     }
-    public void slider4(double newValue){
-        jointVal4.setText(String.format("%.2f",newValue));
+    public void slider4(int newValue){
+        jointVal4.setText(String.format("%d",newValue));
     }
-    public void slider5(double newValue){
-        jointVal5.setText(String.format("%.2f",newValue));
+    public void slider5(int newValue){
+        jointVal5.setText(String.format("%d",newValue));
     }
-    public void slider6(double newValue){
-        jointVal6.setText(String.format("%.2f",newValue));
+    public void slider6(int newValue){
+        jointVal6.setText(String.format("%d",newValue));
     }
 
     @FXML
@@ -291,11 +291,11 @@ public class MainController {
 
     @FXML
     public void updateJointsFromGui(){
-        joints.get(1).updateJoint(1, Integer.parseInt(can1.getText()), Integer.parseInt(home1.getText()), Double.parseDouble(kp1.getText()), Double.parseDouble(ki1.getText()), Double.parseDouble(kd1.getText()));
-        joints.get(2).updateJoint(2, Integer.parseInt(can2.getText()), Integer.parseInt(home2.getText()), Double.parseDouble(kp2.getText()), Double.parseDouble(ki2.getText()), Double.parseDouble(kd2.getText()));
-        joints.get(3).updateJoint(3, Integer.parseInt(can3.getText()), Integer.parseInt(home3.getText()), Double.parseDouble(kp3.getText()), Double.parseDouble(ki3.getText()), Double.parseDouble(kd3.getText()));
-        joints.get(4).updateJoint(4, Integer.parseInt(can4.getText()), Integer.parseInt(home4.getText()), Double.parseDouble(kp4.getText()), Double.parseDouble(ki4.getText()), Double.parseDouble(kd4.getText()));
-        joints.get(5).updateJoint(5, Integer.parseInt(can5.getText()), Integer.parseInt(home5.getText()), Double.parseDouble(kp5.getText()), Double.parseDouble(ki5.getText()), Double.parseDouble(kd5.getText()));
+        joints.get(0).updateJoint(1, Integer.parseInt(can1.getText()), Integer.parseInt(home1.getText()), Double.parseDouble(kp1.getText()), Double.parseDouble(ki1.getText()), Double.parseDouble(kd1.getText()));
+        joints.get(1).updateJoint(2, Integer.parseInt(can2.getText()), Integer.parseInt(home2.getText()), Double.parseDouble(kp2.getText()), Double.parseDouble(ki2.getText()), Double.parseDouble(kd2.getText()));
+        joints.get(2).updateJoint(3, Integer.parseInt(can3.getText()), Integer.parseInt(home3.getText()), Double.parseDouble(kp3.getText()), Double.parseDouble(ki3.getText()), Double.parseDouble(kd3.getText()));
+        joints.get(3).updateJoint(4, Integer.parseInt(can4.getText()), Integer.parseInt(home4.getText()), Double.parseDouble(kp4.getText()), Double.parseDouble(ki4.getText()), Double.parseDouble(kd4.getText()));
+        joints.get(4).updateJoint(5, Integer.parseInt(can5.getText()), Integer.parseInt(home5.getText()), Double.parseDouble(kp5.getText()), Double.parseDouble(ki5.getText()), Double.parseDouble(kd5.getText()));
         //joints.get(6).updateJoint(6, Integer.parseInt(can6.getText()), Integer.parseInt(home6.getText()), Double.parseDouble(kp6.getText()), Double.parseDouble(ki6.getText()), Double.parseDouble(kd6.getText()));
     }
 
