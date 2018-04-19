@@ -108,7 +108,7 @@ public class MainController {
 
     public ArrayList<Joint> joints = new ArrayList<>();
     public GsonHandler gs = new GsonHandler();
-    public Comms comm;// = Comms.getInstance();
+    public Comms comm = Comms.getInstance();
     public HashMap<String,String> FXData = new HashMap<>();
 
 
@@ -286,7 +286,8 @@ public class MainController {
     @FXML
     public void sendInit(){ //attach to init button in gui
         comm.initJoints(joints);
-        System.out.println(comm.readBuff(12)); //receive the Initialize ACK and print out "Initialized!"
+        comm.io(joints);
+        //System.out.println(comm.readBuff(12)); //receive the Initialize ACK and print out "Initialized!"
     }
 
     @FXML

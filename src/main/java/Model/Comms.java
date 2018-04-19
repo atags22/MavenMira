@@ -75,7 +75,7 @@ public class Comms {
         String kiStr = turnDoubleIntoFormattedString(ki);
 
         String toSend = jointStr + jointIDStr + offsetStr + kpStr + kiStr + kdStr;
-        //System.out.println(toSend);
+        System.out.println(toSend);
         try {
             outs.writeBytes(toSend);
         } catch (IOException e) {
@@ -108,6 +108,7 @@ public class Comms {
         while(decimals.length() < 2){
             decimals = decimals + "0";
         }
+        dStr = tens + decimals;
         return dStr;
     }
 
