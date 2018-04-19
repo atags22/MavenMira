@@ -84,17 +84,17 @@ public class Comms {
         }
 
         byte[] buff = {'0'};
-        System.out.println("Waiting for ACK");
+        //System.out.println("Waiting for ACK");
         while(buff[0] != 89){
             try {
                 ins.read(buff);
-                System.out.println(buff[0]);
+                //System.out.println(buff[0]);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Read Failed");
             }
         }
-        System.out.println("ACK Received");
+        //System.out.println("ACK Received");
     }
 
     public String turnDoubleIntoFormattedString(double d){
@@ -129,6 +129,7 @@ public class Comms {
     public void readJointUpdate(ArrayList<Joint> joints){
         for(Joint j: joints){
             String buff = readBuff(4);
+            System.out.println(buff);
             j.setCurPoint(Integer.parseInt(buff));
         }
     }
