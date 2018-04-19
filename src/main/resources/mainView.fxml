@@ -164,27 +164,27 @@
                                     </AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                        <children>
-                                          <JFXTextField fx:id="can1" alignment="CENTER" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                          <JFXTextField fx:id="can1" alignment="CENTER" layoutX="10.0" layoutY="10.0" text="3" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                        </children></AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                        <children>
-                                           <JFXTextField fx:id="can2" alignment="CENTER" layoutX="10" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                           <JFXTextField fx:id="can2" alignment="CENTER" layoutX="10" layoutY="10.0" text="4" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                            <JFXDialog layoutX="50.0" layoutY="26.0" />
                                        </children>
                                     </AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                         <children>
-                                            <JFXTextField fx:id="can3" alignment="CENTER" layoutX="10" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                            <JFXTextField fx:id="can3" alignment="CENTER" layoutX="10" layoutY="10.0" text="5" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                         </children>
                                      </AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                                          <children>
-                                             <JFXTextField fx:id="can4" alignment="CENTER" layoutX="10" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="can4" alignment="CENTER" layoutX="10" layoutY="10.0" text="6" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children>
                                      </AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                                          <children>
-                                             <JFXTextField alignment="CENTER" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="can5" alignment="CENTER" layoutX="10.0" layoutY="10.0" text="7" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children>
                                      </AnchorPane>
 
@@ -273,7 +273,12 @@
                                     </AnchorPane>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="6">
                                        <children>
-                                          <Button layoutX="16.0" layoutY="7.0" mnemonicParsing="false" onAction="#sendInit" text="Start" />
+                                          <Button layoutX="16.0" layoutY="7.0" mnemonicParsing="false" onAction="#loadFile" text="Load" />
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                                       <children>
+                                          <Button layoutX="16.0" layoutY="6.0" mnemonicParsing="false" onAction="#sendInit" text="Start" />
                                        </children>
                                     </AnchorPane>
 

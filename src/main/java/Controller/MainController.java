@@ -1,6 +1,9 @@
 package Controller;
 
 //import Model.RobotArm;
+import Model.Comms;
+import Model.GsonHandler;
+import Model.Joint;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -22,11 +25,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Box;
 import util.MagicNumbers;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -94,13 +96,15 @@ public class MainController {
 
     HashMap<String,String> FXData = new HashMap<>();
 
+    GsonHandler gs;
+
 
 //    RobotArm robotArm;
 
     public void initialize() {
 
 //        robotArm = new RobotArm();
-
+        gs = new GsonHandler();
 
         jointCtrl1.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider1(newValue.doubleValue());
@@ -173,39 +177,84 @@ public class MainController {
         });
 
     }
-        void init(){
-            for(int i = 0; i < 6/*RobotArm.numJoints*/; i++) {
-                sendJointID(i);
-                sendEncoderOffsets(i);
-                sendPIDConsts(i);
-                waitForAck(i);
+    public ArrayList<Joint> makeJointsFromGUI(){ //TODO: Input validation
+        Joint a = new Joint(1,
+                makeCanFromString(can1.getText()),
+                makeOffsetFromString(home1.getText()),
+                makeKonst(kp1.getText()),
+                makeKonst(ki1.getText()),
+                makeKonst(kd1.getText()));
+        Joint b = new Joint(2,
+                makeCanFromString(can2.getText()),
+                makeOffsetFromString(home2.getText()),
+                makeKonst(kp2.getText()),
+                makeKonst(ki2.getText()),
+                makeKonst(kd2.getText()));
+        Joint c = new Joint(3,
+                makeCanFromString(can3.getText()),
+                makeOffsetFromString(home3.getText()),
+                makeKonst(kp3.getText()),
+                makeKonst(ki3.getText()),
+                makeKonst(kd3.getText()));
+        Joint d = new Joint(4,
+                makeCanFromString(can4.getText()),
+                makeOffsetFromString(home4.getText()),
+                makeKonst(kp4.getText()),
+                makeKonst(ki4.getText()),
+                makeKonst(kd4.getText()));
+        Joint e = new Joint(5,
+                makeCanFromString(can5.getText()),
+                makeOffsetFromString(home5.getText()),
+                makeKonst(kp5.getText()),
+                makeKonst(ki5.getText()),
+                makeKonst(kd5.getText()));
+
+        //dummy values
+        Joint f = new Joint(6, 6, 4180, 21.9, 2.23, 1.60);
+
+        ArrayList<Joint> jointList = new ArrayList<>();
+        jointList.add(a);
+        jointList.add(b);
+        jointList.add(c);
+        jointList.add(d);
+        jointList.add(e);
+        jointList.add(f);
+
+        return jointList;
+    }
+
+
+        int makeCanFromString(String rawInput){
+            int toReturn = Integer.parseInt(rawInput);
+            if(toReturn < 1){
+                toReturn = 1;
             }
+            if(toReturn > 63){
+                toReturn = 63;
+            }
+            return toReturn;
         }
 
-        void sendJointID(int jointNum){
-
-        }
-        void sendEncoderOffsets(int jointnum){
-
-        }
-        void sendPIDConsts(int jointNum){
-
-        }
-        void waitForAck(int jointNum){
-
+        int makeOffsetFromString(String rawInput){
+            int toReturn = Integer.parseInt(rawInput);
+            if(toReturn < -4095){
+                toReturn = -4095;
+            }
+            if(toReturn > 4095){
+                toReturn = 4095;
+            }
+            return toReturn;
         }
 
-        @FXML
-        void sendInit(){
-        System.out.println("Start");
-        String joint1 = "Enabled: " + button1.isSelected() +
-                        " Encoder offset: " + home1.getText() +
-                        " CAN ID: " + can1.getText() +
-                        " kp: " + kp1.getText() +
-                        " ki: " + ki1.getText() +
-                        " kd: " + kd1.getText();
-        System.out.println(joint1);
-        
+        double makeKonst(String rawInput){
+            double toReturn = Double.parseDouble(rawInput);
+            if(toReturn < 0){
+                toReturn = 0;
+            }
+            if(toReturn > 99.99){
+                toReturn = 99.99;
+            }
+            return toReturn;
         }
 
 
@@ -233,50 +282,6 @@ public class MainController {
         jointVal6.setText(String.format("%.2f",newValue*MagicNumbers.HUNDRED_TO_360));
     }
 
-    @FXML
-    public void saveData(){
-        System.out.println("Save data");
-        byte a[];
-        byte b[];
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
-try {
-    outputStream.write(home1.getText().getBytes());
-    outputStream.write('\n');
-    outputStream.write(home2.getText().getBytes());
-    outputStream.write('\n');
-    outputStream.write(home3.getText().getBytes());
-    outputStream.write('\n');
-    outputStream.write(home4.getText().getBytes());
-    outputStream.write('\n');
-    outputStream.write(home5.getText().getBytes());
-    outputStream.write('\n');
-
-}
-
-
-    catch (IOException e) {
-        e.printStackTrace();
-    }
-
-
-        byte data[] = outputStream.toByteArray();
-
-        System.out.println(data.toString());
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream("armDat.data");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            out.write(data);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
     void loadData(){
@@ -292,6 +297,83 @@ try {
         JFXPopup p = new JFXPopup();
 
     }
+
+    /************************** Functions that are Callbacks from GUI ****************************/
+    @FXML
+    void sendInit(){
+        System.out.println("Start");
+        Comms comm = Comms.getInstance();
+        ArrayList<Joint> jointList = makeJointsFromGUI();
+
+            for(Joint j: jointList){
+                 comm.sendJointInit(j); //sends joint init data based on what is read in from the json file
+            }
+
+    }
+
+
+    @FXML
+    void loadFile(){
+        System.out.println("load file");
+        ArrayList<Joint> newData = null;
+        try{
+            newData = gs.readJson("db.json");
+        }
+        catch(FileNotFoundException e){
+            //TODO: Display helpful error message popup
+            System.out.println("No such file.");
+        }
+        for(Joint j : newData){
+            if(j.getJointNum()==1) {
+                can1.setText(Integer.toString(j.getCAN_ID()));
+                home1.setText(Integer.toString(j.getOffset()));
+                kp1.setText(Double.toString(j.getKp()));
+                ki1.setText(Double.toString(j.getKi()));
+                kd1.setText(Double.toString(j.getKd()));
+            }
+            else if(j.getJointNum()==2){
+                can2.setText(Integer.toString(j.getCAN_ID()));
+                home2.setText(Integer.toString(j.getOffset()));
+                kp2.setText(Double.toString(j.getKp()));
+                ki2.setText(Double.toString(j.getKi()));
+                kd2.setText(Double.toString(j.getKd()));
+            }
+            else if(j.getJointNum()==3){
+                can3.setText(Integer.toString(j.getCAN_ID()));
+                home3.setText(Integer.toString(j.getOffset()));
+                kp3.setText(Double.toString(j.getKp()));
+                ki3.setText(Double.toString(j.getKi()));
+                kd3.setText(Double.toString(j.getKd()));
+            }
+            else if(j.getJointNum()==4){
+                can4.setText(Integer.toString(j.getCAN_ID()));
+                home4.setText(Integer.toString(j.getOffset()));
+                kp4.setText(Double.toString(j.getKp()));
+                ki4.setText(Double.toString(j.getKi()));
+                kd4.setText(Double.toString(j.getKd()));
+            }
+            else if(j.getJointNum()==5){
+                can5.setText(Integer.toString(j.getCAN_ID()));
+                home5.setText(Integer.toString(j.getOffset()));
+                kp5.setText(Double.toString(j.getKp()));
+                ki5.setText(Double.toString(j.getKi()));
+                kd5.setText(Double.toString(j.getKd()));
+            }
+
+        }
+    }
+
+    @FXML
+    public void saveData(){
+        System.out.println("Save data");
+        ArrayList<Joint> toWrite = makeJointsFromGUI();
+        gs.writeJson(toWrite);
+        System.out.println(toWrite.toString());
+    }
+
+
+
+
 }
 
 

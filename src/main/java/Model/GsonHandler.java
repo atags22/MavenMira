@@ -23,7 +23,7 @@ public class GsonHandler {
         }
     }
 
-    public ArrayList readJson(String filename) throws FileNotFoundException{
+    public ArrayList<Joint> readJson(String filename) throws FileNotFoundException{
         BufferedReader br = new BufferedReader(new FileReader(filename));
         return gson.fromJson(br, ArrayList.class);
     }

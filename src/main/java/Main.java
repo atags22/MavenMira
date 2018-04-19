@@ -76,6 +76,8 @@ public class Main extends Application {
         return jointList;
     }
 
+
+
     public static void main(String[] args) throws InterruptedException {
 
         System.out.println("started");
