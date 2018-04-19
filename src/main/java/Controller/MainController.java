@@ -114,11 +114,11 @@ public class MainController {
 
     public void initialize() {
 
-        //loadData(); //loads data from file or makes default values for gui
+        loadData(); //loads data from file or makes default values for gui
 
         jointCtrl1.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider1(newValue.doubleValue());
-            this.joints.get(1).updateSetpoint(newValue.intValue()); //updates setpoint for a given joint value
+            joints.get(1).updateSetpoint(newValue.intValue()); //updates setpoint for a given joint value
         });
 
         jointCtrl2.valueProperty().addListener((obs, oldValue, newValue) -> {
@@ -233,6 +233,7 @@ public class MainController {
 
     @FXML
     public void saveData(){ //attach to save button in gui
+        updateJointsFromGui();
         gs.writeJson(joints);
     }
 
@@ -242,6 +243,43 @@ public class MainController {
             joints = gs.readJson("db.json"); //tries to initialize joints variable
         } catch (FileNotFoundException e) {
             joints = makeJointsDefault(); //default case under condition that file is not loaded
+        }
+        for(Joint j : joints){
+            if(j.getJointNum()==1) {
+                can1.setText(Integer.toString(j.getCAN_ID()));
+                home1.setText(Integer.toString(j.getOffset()));
+                kp1.setText(Double.toString(j.getKp()));
+                ki1.setText(Double.toString(j.getKi()));
+                kd1.setText(Double.toString(j.getKd()));
+            }
+            else if(j.getJointNum()==2){
+                can2.setText(Integer.toString(j.getCAN_ID()));
+                home2.setText(Integer.toString(j.getOffset()));
+                kp2.setText(Double.toString(j.getKp()));
+                ki2.setText(Double.toString(j.getKi()));
+                kd2.setText(Double.toString(j.getKd()));
+            }
+            else if(j.getJointNum()==3){
+                can3.setText(Integer.toString(j.getCAN_ID()));
+                home3.setText(Integer.toString(j.getOffset()));
+                kp3.setText(Double.toString(j.getKp()));
+                ki3.setText(Double.toString(j.getKi()));
+                kd3.setText(Double.toString(j.getKd()));
+            }
+            else if(j.getJointNum()==4){
+                can4.setText(Integer.toString(j.getCAN_ID()));
+                home4.setText(Integer.toString(j.getOffset()));
+                kp4.setText(Double.toString(j.getKp()));
+                ki4.setText(Double.toString(j.getKi()));
+                kd4.setText(Double.toString(j.getKd()));
+            }
+            else if(j.getJointNum()==5){
+                can5.setText(Integer.toString(j.getCAN_ID()));
+                home5.setText(Integer.toString(j.getOffset()));
+                kp5.setText(Double.toString(j.getKp()));
+                ki5.setText(Double.toString(j.getKi()));
+                kd5.setText(Double.toString(j.getKd()));
+            }
         }
     }
 
@@ -258,7 +296,7 @@ public class MainController {
         joints.get(3).updateJoint(3, Integer.parseInt(can3.getText()), Integer.parseInt(home3.getText()), Double.parseDouble(kp3.getText()), Double.parseDouble(ki3.getText()), Double.parseDouble(kd3.getText()));
         joints.get(4).updateJoint(4, Integer.parseInt(can4.getText()), Integer.parseInt(home4.getText()), Double.parseDouble(kp4.getText()), Double.parseDouble(ki4.getText()), Double.parseDouble(kd4.getText()));
         joints.get(5).updateJoint(5, Integer.parseInt(can5.getText()), Integer.parseInt(home5.getText()), Double.parseDouble(kp5.getText()), Double.parseDouble(ki5.getText()), Double.parseDouble(kd5.getText()));
-        joints.get(6).updateJoint(6, Integer.parseInt(can6.getText()), Integer.parseInt(home6.getText()), Double.parseDouble(kp6.getText()), Double.parseDouble(ki6.getText()), Double.parseDouble(kd6.getText()));
+        //joints.get(6).updateJoint(6, Integer.parseInt(can6.getText()), Integer.parseInt(home6.getText()), Double.parseDouble(kp6.getText()), Double.parseDouble(ki6.getText()), Double.parseDouble(kd6.getText()));
     }
 
     public void toggleMenu(){

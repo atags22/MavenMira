@@ -184,7 +184,7 @@
                                      </AnchorPane>
                                      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                                          <children>
-                                             <JFXTextField alignment="CENTER" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                                             <JFXTextField fx:id="can5" alignment="CENTER" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                                          </children>
                                      </AnchorPane>
 
