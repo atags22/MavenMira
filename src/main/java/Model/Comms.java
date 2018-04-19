@@ -131,6 +131,7 @@ public class Comms {
             String buff = readBuff(4);
             System.out.println(buff);
             j.setCurPoint(Integer.parseInt(buff));
+            readBuff(1); //Apparently there's a space? Hmm. Oh well.
         }
     }
 
@@ -139,6 +140,8 @@ public class Comms {
     }
 
     public void io(ArrayList<Joint> joints){
+        String buff = readBuff(13);//Make initialized! come through properly
+        System.out.println(buff);
         while(true) {
             readJointUpdate(joints);
             int j1 = joints.get(0).getSetPoint();

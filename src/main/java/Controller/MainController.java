@@ -114,7 +114,7 @@ public class MainController {
 
     public void initialize() {
 
-        loadData(); //loads data from file or makes default values for gui
+
 
         jointCtrl1.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider1(newValue.intValue());
@@ -186,6 +186,8 @@ public class MainController {
             }
         });
 
+        loadData(); //loads data from file or makes default values for gui
+
     }
 
     public static ArrayList<Joint> makeJointsDefault(){ // default values for joints in case there is no file saved
@@ -251,6 +253,7 @@ public class MainController {
                 kp1.setText(Double.toString(j.getKp()));
                 ki1.setText(Double.toString(j.getKi()));
                 kd1.setText(Double.toString(j.getKd()));
+                jointCtrl1.setValue(j.setPoint);
             }
             else if(j.getJointNum()==2){
                 can2.setText(Integer.toString(j.getCAN_ID()));
@@ -258,6 +261,7 @@ public class MainController {
                 kp2.setText(Double.toString(j.getKp()));
                 ki2.setText(Double.toString(j.getKi()));
                 kd2.setText(Double.toString(j.getKd()));
+                jointCtrl2.setValue(j.setPoint);
             }
             else if(j.getJointNum()==3){
                 can3.setText(Integer.toString(j.getCAN_ID()));
@@ -265,6 +269,7 @@ public class MainController {
                 kp3.setText(Double.toString(j.getKp()));
                 ki3.setText(Double.toString(j.getKi()));
                 kd3.setText(Double.toString(j.getKd()));
+                jointCtrl3.setValue(j.setPoint);
             }
             else if(j.getJointNum()==4){
                 can4.setText(Integer.toString(j.getCAN_ID()));
@@ -272,6 +277,7 @@ public class MainController {
                 kp4.setText(Double.toString(j.getKp()));
                 ki4.setText(Double.toString(j.getKi()));
                 kd4.setText(Double.toString(j.getKd()));
+                jointCtrl4.setValue(j.setPoint);
             }
             else if(j.getJointNum()==5){
                 can5.setText(Integer.toString(j.getCAN_ID()));
@@ -279,6 +285,7 @@ public class MainController {
                 kp5.setText(Double.toString(j.getKp()));
                 ki5.setText(Double.toString(j.getKi()));
                 kd5.setText(Double.toString(j.getKd()));
+                jointCtrl5.setValue(j.setPoint);
             }
         }
     }
@@ -296,9 +303,9 @@ public class MainController {
         joints.get(1).updateJoint(2, Integer.parseInt(can2.getText()), Integer.parseInt(home2.getText()), Double.parseDouble(kp2.getText()), Double.parseDouble(ki2.getText()), Double.parseDouble(kd2.getText()));
         joints.get(2).updateJoint(3, Integer.parseInt(can3.getText()), Integer.parseInt(home3.getText()), Double.parseDouble(kp3.getText()), Double.parseDouble(ki3.getText()), Double.parseDouble(kd3.getText()));
         joints.get(3).updateJoint(4, Integer.parseInt(can4.getText()), Integer.parseInt(home4.getText()), Double.parseDouble(kp4.getText()), Double.parseDouble(ki4.getText()), Double.parseDouble(kd4.getText()));
-        joints.get(5).updateJoint(5, Integer.parseInt(can5.getText()), Integer.parseInt(home5.getText()), Double.parseDouble(kp5.getText()), Double.parseDouble(ki5.getText()), Double.parseDouble(kd5.getText()));
-        //joints.get(6).updateJoint(6, Integer.parseInt(can6.getText()), Integer.parseInt(home6.getText()), Double.parseDouble(kp6.getText()), Double.parseDouble(ki6.getText()), Double.parseDouble(kd6.getText()));
-        jointCtrl1.setValue(Integer.parseInt(home1.getText()));
+        joints.get(4).updateJoint(5, Integer.parseInt(can5.getText()), Integer.parseInt(home5.getText()), Double.parseDouble(kp5.getText()), Double.parseDouble(ki5.getText()), Double.parseDouble(kd5.getText()));
+        joints.get(5).updateJoint(6, 6, 4180, 21.9, 2.23, 1.60);
+
     }
 
     public void toggleMenu(){
