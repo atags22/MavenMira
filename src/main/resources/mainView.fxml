@@ -334,6 +334,7 @@
                                              </VBox.margin>
                                           </HBox>
                                           <JFXSlider fx:id="jointCtrl1" max="4095.0" />
+                                          <JFXSlider fx:id="jointCtrl11" disable="true" max="4095.0" />
                                           <HBox>
                                              <children>
                                                 <Label fx:id="jointLbl2" text="Joint 2">
@@ -353,6 +354,7 @@
                                              </VBox.margin>
                                           </HBox>
                                           <JFXSlider fx:id="jointCtrl2" max="4095.0" />
+                                          <JFXSlider fx:id="jointCtrl111" disable="true" max="4095.0" />
                                           <HBox>
                                              <children>
                                                 <Label fx:id="jointLbl3" text="Joint 3">
@@ -372,6 +374,7 @@
                                              </VBox.margin>
                                           </HBox>
                                           <JFXSlider fx:id="jointCtrl3" max="4095.0" />
+                                          <JFXSlider fx:id="jointCtrl112" disable="true" max="4095.0" />
                                        </children>
                                     </VBox>
                                     <VBox prefHeight="204.0" HBox.hgrow="ALWAYS">
@@ -395,6 +398,7 @@
                                              </VBox.margin>
                                           </HBox>
                                           <JFXSlider fx:id="jointCtrl4" max="4095.0" />
+                                          <JFXSlider fx:id="jointCtrl1123" disable="true" max="4095.0" />
                                           <HBox>
                                              <children>
                                                 <Label fx:id="jointLbl5" text="Joint 5">
@@ -414,6 +418,7 @@
                                              </VBox.margin>
                                           </HBox>
                                           <JFXSlider fx:id="jointCtrl5" max="4095.0" />
+                                          <JFXSlider fx:id="jointCtrl1122" disable="true" max="4095.0" />
                                           <HBox>
                                              <children>
                                                 <Label fx:id="jointLbl6" text="Joint 6">
@@ -433,6 +438,7 @@
                                              </VBox.margin>
                                           </HBox>
                                           <JFXSlider fx:id="jointCtrl6" max="4095.0" />
+                                          <JFXSlider fx:id="jointCtrl1121" disable="true" max="4095.0" />
                                        </children>
                                     </VBox>
                                  </children>

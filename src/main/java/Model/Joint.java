@@ -34,9 +34,9 @@ public class Joint {
     }
 
 
-    public void updateJoint(int jointNum, int jointID, int encoderOffset, double kp, double ki, double kd){
+    public void updateJoint(int jointNum, int CAN_ID, int encoderOffset, double kp, double ki, double kd){
         this.jointNum = jointNum;
-        this.CAN_ID = jointID;
+        this.CAN_ID = CAN_ID;
         this.offset = encoderOffset;
         this.kp = kp;
         this.ki = ki;
