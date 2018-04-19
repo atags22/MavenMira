@@ -41,6 +41,12 @@ public class Comms {
         return instance;
     }
 
+    public void initJoints(ArrayList<Joint> joints){
+        for(Joint j: joints){
+            sendJointInit(j);
+        }
+    }
+
     public void sendJointInit(Joint j){
         //Info: jointNum, jointID, encoderOffset, pid constants *3, get ack back
         int jointNum = j.getJointNum(); //1 through 6

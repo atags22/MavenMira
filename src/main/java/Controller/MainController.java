@@ -1,6 +1,9 @@
 package Controller;
 
 //import Model.RobotArm;
+import Model.Comms;
+import Model.GsonHandler;
+import Model.Joint;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
@@ -27,6 +30,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -60,6 +65,8 @@ public class MainController {
     @FXML JFXToggleButton button3;
     @FXML JFXToggleButton button4;
     @FXML JFXToggleButton button5;
+    @FXML JFXToggleButton button6;
+
 
 
     @FXML JFXTextField home1;
@@ -67,69 +74,76 @@ public class MainController {
     @FXML JFXTextField home3;
     @FXML JFXTextField home4;
     @FXML JFXTextField home5;
+    @FXML JFXTextField home6;
 
     @FXML JFXTextField can1;
     @FXML JFXTextField can2;
     @FXML JFXTextField can3;
     @FXML JFXTextField can4;
     @FXML JFXTextField can5;
+    @FXML JFXTextField can6;
 
     @FXML JFXTextField kp1;
     @FXML JFXTextField kp2;
     @FXML JFXTextField kp3;
     @FXML JFXTextField kp4;
     @FXML JFXTextField kp5;
+    @FXML JFXTextField kp6;
 
     @FXML JFXTextField ki1;
     @FXML JFXTextField ki2;
     @FXML JFXTextField ki3;
     @FXML JFXTextField ki4;
     @FXML JFXTextField ki5;
+    @FXML JFXTextField ki6;
 
     @FXML JFXTextField kd1;
     @FXML JFXTextField kd2;
     @FXML JFXTextField kd3;
     @FXML JFXTextField kd4;
     @FXML JFXTextField kd5;
+    @FXML JFXTextField kd6;
 
-    HashMap<String,String> FXData = new HashMap<>();
 
 
-//    RobotArm robotArm;
+    public ArrayList<Joint> joints = new ArrayList<>();
+    public GsonHandler gs = new GsonHandler();
+    public Comms comm;// = Comms.getInstance();
+    public HashMap<String,String> FXData = new HashMap<>();
+
 
     public void initialize() {
 
-//        robotArm = new RobotArm();
-
+        //loadData(); //loads data from file or makes default values for gui
 
         jointCtrl1.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider1(newValue.doubleValue());
-//            robotArm.updateJointPosition(1, newValue.doubleValue());
+            this.joints.get(1).updateSetpoint(newValue.intValue()); //updates setpoint for a given joint value
         });
 
         jointCtrl2.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider2(newValue.doubleValue());
-//            robotArm.updateJointPosition(2, newValue.doubleValue());
+            this.joints.get(2).updateSetpoint(newValue.intValue());
         });
 
         jointCtrl3.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider3(newValue.doubleValue());
-//            robotArm.updateJointPosition(3, newValue.doubleValue());
+            this.joints.get(3).updateSetpoint(newValue.intValue());
         });
 
         jointCtrl4.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider4(newValue.doubleValue());
-//            robotArm.updateJointPosition(4, newValue.doubleValue());
+            this.joints.get(4).updateSetpoint(newValue.intValue());
         });
 
         jointCtrl5.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider5(newValue.doubleValue());
-//            robotArm.updateJointPosition(5, newValue.doubleValue());
+            this.joints.get(5).updateSetpoint(newValue.intValue());
         });
 
         jointCtrl6.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider6(newValue.doubleValue());
-//            robotArm.updateJointPosition(6, newValue.doubleValue());
+            this.joints.get(6).updateSetpoint(newValue.intValue());
         });
 
 
@@ -173,41 +187,25 @@ public class MainController {
         });
 
     }
-        void init(){
-            for(int i = 0; i < 6/*RobotArm.numJoints*/; i++) {
-                sendJointID(i);
-                sendEncoderOffsets(i);
-                sendPIDConsts(i);
-                waitForAck(i);
-            }
-        }
 
-        void sendJointID(int jointNum){
+    public static ArrayList<Joint> makeJointsDefault(){ // default values for joints in case there is no file saved
+        Joint a = new Joint(1, 2, 2000, 1.2, 22.3, 1.49);
+        Joint b = new Joint(2, 4, 100, 1., 13., 1.8);
+        Joint c = new Joint(3, 1, 4000, 21.9, 2.23, 1.60);
+        Joint d = new Joint(4, 0, 5000, 21.9, 2.23, 1.60);
+        Joint e = new Joint(5, 8, 200, 21.9, 2.23, 1.60);
+        Joint f = new Joint(6, 6, 4180, 21.9, 2.23, 1.60);
 
-        }
-        void sendEncoderOffsets(int jointnum){
+        ArrayList<Joint> jointList = new ArrayList<>();
+        jointList.add(a);
+        jointList.add(b);
+        jointList.add(c);
+        jointList.add(d);
+        jointList.add(e);
+        jointList.add(f);
 
-        }
-        void sendPIDConsts(int jointNum){
-
-        }
-        void waitForAck(int jointNum){
-
-        }
-
-        @FXML
-        void sendInit(){
-        System.out.println("Start");
-        String joint1 = "Enabled: " + button1.isSelected() +
-                        " Encoder offset: " + home1.getText() +
-                        " CAN ID: " + can1.getText() +
-                        " kp: " + kp1.getText() +
-                        " ki: " + ki1.getText() +
-                        " kd: " + kd1.getText();
-        System.out.println(joint1);
-        
-        }
-
+        return jointList;
+    }
 
     public AnchorPane getAnchorViz() {
 
@@ -215,83 +213,123 @@ public class MainController {
     }
 
     public void slider1(double newValue){
-        jointVal1.setText(String.format("%.2f",newValue*MagicNumbers.HUNDRED_TO_360));
+        jointVal1.setText(String.format("%.2f",newValue));
     }
     public void slider2(double newValue){
-        jointVal2.setText(String.format("%.2f",newValue*MagicNumbers.HUNDRED_TO_360));
+        jointVal2.setText(String.format("%.2f",newValue));
     }
     public void slider3(double newValue){
-        jointVal3.setText(String.format("%.2f",newValue*MagicNumbers.HUNDRED_TO_360));
+        jointVal3.setText(String.format("%.2f",newValue));
     }
     public void slider4(double newValue){
-        jointVal4.setText(String.format("%.2f",newValue*MagicNumbers.HUNDRED_TO_360));
+        jointVal4.setText(String.format("%.2f",newValue));
     }
     public void slider5(double newValue){
-        jointVal5.setText(String.format("%.2f",newValue*MagicNumbers.HUNDRED_TO_360));
+        jointVal5.setText(String.format("%.2f",newValue));
     }
     public void slider6(double newValue){
-        jointVal6.setText(String.format("%.2f",newValue*MagicNumbers.HUNDRED_TO_360));
+        jointVal6.setText(String.format("%.2f",newValue));
     }
 
     @FXML
-    public void saveData(){
-        System.out.println("Save data");
-        byte a[];
-        byte b[];
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
-try {
-    outputStream.write(home1.getText().getBytes());
-    outputStream.write('\n');
-    outputStream.write(home2.getText().getBytes());
-    outputStream.write('\n');
-    outputStream.write(home3.getText().getBytes());
-    outputStream.write('\n');
-    outputStream.write(home4.getText().getBytes());
-    outputStream.write('\n');
-    outputStream.write(home5.getText().getBytes());
-    outputStream.write('\n');
-
-}
-
-
-    catch (IOException e) {
-        e.printStackTrace();
+    public void saveData(){ //attach to save button in gui
+        gs.writeJson(joints);
     }
 
-
-        byte data[] = outputStream.toByteArray();
-
-        System.out.println(data.toString());
-        FileOutputStream out = null;
+    @FXML
+    public void loadData(){ //attach to load button in gui
         try {
-            out = new FileOutputStream("armDat.data");
+            joints = gs.readJson("db.json"); //tries to initialize joints variable
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            joints = makeJointsDefault(); //default case under condition that file is not loaded
         }
-        try {
-            out.write(data);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
+    @FXML
+    public void sendInit(){ //attach to init button in gui
+        comm.initJoints(joints);
+        System.out.println(comm.readBuff(12)); //receive the Initialize ACK and print out "Initialized!"
+    }
 
-    void loadData(){
-        //call the GSON loader
-        for(Node n : configGrid.getChildren()){
-            if(n instanceof AnchorPane){
-
-            }
-        }
+    @FXML
+    public void updateJointsFromGui(){
+        joints.get(1).updateJoint(1, Integer.parseInt(can1.getText()), Integer.parseInt(home1.getText()), Double.parseDouble(kp1.getText()), Double.parseDouble(ki1.getText()), Double.parseDouble(kd1.getText()));
+        joints.get(2).updateJoint(2, Integer.parseInt(can2.getText()), Integer.parseInt(home2.getText()), Double.parseDouble(kp2.getText()), Double.parseDouble(ki2.getText()), Double.parseDouble(kd2.getText()));
+        joints.get(3).updateJoint(3, Integer.parseInt(can3.getText()), Integer.parseInt(home3.getText()), Double.parseDouble(kp3.getText()), Double.parseDouble(ki3.getText()), Double.parseDouble(kd3.getText()));
+        joints.get(4).updateJoint(4, Integer.parseInt(can4.getText()), Integer.parseInt(home4.getText()), Double.parseDouble(kp4.getText()), Double.parseDouble(ki4.getText()), Double.parseDouble(kd4.getText()));
+        joints.get(5).updateJoint(5, Integer.parseInt(can5.getText()), Integer.parseInt(home5.getText()), Double.parseDouble(kp5.getText()), Double.parseDouble(ki5.getText()), Double.parseDouble(kd5.getText()));
+        joints.get(6).updateJoint(6, Integer.parseInt(can6.getText()), Integer.parseInt(home6.getText()), Double.parseDouble(kp6.getText()), Double.parseDouble(ki6.getText()), Double.parseDouble(kd6.getText()));
     }
 
     public void toggleMenu(){
         JFXPopup p = new JFXPopup();
 
     }
+
+    //    @FXML
+//    void sendInit(){
+//        System.out.println("Start");
+//        String joint1 = "Enabled: " + button1.isSelected() +
+//                " Encoder offset: " + home1.getText() +
+//                " CAN ID: " + can1.getText() +
+//                " kp: " + kp1.getText() +
+//                " ki: " + ki1.getText() +
+//                " kd: " + kd1.getText();
+//        System.out.println(joint1);
+//
+//    }
+
+    //    @FXML
+//    public void saveData(){
+//        System.out.println("Save data");
+//        byte a[];
+//        byte b[];
+//
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );
+//        try {
+//            outputStream.write(home1.getText().getBytes());
+//            outputStream.write('\n');
+//            outputStream.write(home2.getText().getBytes());
+//            outputStream.write('\n');
+//            outputStream.write(home3.getText().getBytes());
+//            outputStream.write('\n');
+//            outputStream.write(home4.getText().getBytes());
+//            outputStream.write('\n');
+//            outputStream.write(home5.getText().getBytes());
+//            outputStream.write('\n');
+//
+//        }
+//
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        byte data[] = outputStream.toByteArray();
+//
+//        System.out.println(Arrays.toString(data));
+//        FileOutputStream out = null;
+//        try {
+//            out = new FileOutputStream("armDat.data");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            out.write(data);
+//            out.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
+//    void loadData(){
+//        //call the GSON loader
+//        for(Node n : configGrid.getChildren()){
+//            if(n instanceof AnchorPane){
+//
+//            }
+//        }
+//    }
 }
 
 
