@@ -119,6 +119,7 @@ public class MainController {
         jointCtrl1.valueProperty().addListener((obs, oldValue, newValue) -> {
             slider1(newValue.doubleValue());
             joints.get(1).updateSetpoint(newValue.intValue()); //updates setpoint for a given joint value
+            System.out.println("1 changed");
         });
 
         jointCtrl2.valueProperty().addListener((obs, oldValue, newValue) -> {
@@ -297,6 +298,7 @@ public class MainController {
         joints.get(4).updateJoint(4, Integer.parseInt(can4.getText()), Integer.parseInt(home4.getText()), Double.parseDouble(kp4.getText()), Double.parseDouble(ki4.getText()), Double.parseDouble(kd4.getText()));
         joints.get(5).updateJoint(5, Integer.parseInt(can5.getText()), Integer.parseInt(home5.getText()), Double.parseDouble(kp5.getText()), Double.parseDouble(ki5.getText()), Double.parseDouble(kd5.getText()));
         //joints.get(6).updateJoint(6, Integer.parseInt(can6.getText()), Integer.parseInt(home6.getText()), Double.parseDouble(kp6.getText()), Double.parseDouble(ki6.getText()), Double.parseDouble(kd6.getText()));
+        jointCtrl1.setValue(Integer.parseInt(home1.getText()));
     }
 
     public void toggleMenu(){
